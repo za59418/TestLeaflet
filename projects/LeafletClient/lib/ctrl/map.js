@@ -19,16 +19,19 @@
             var crs = null;
             if (options.baseLayer.type == "tile") {
                 crs = new L.Proj.CRS(options.baseCrs.code, options.baseCrs.defs, {
-                    origion: options.baseLayer.origion,
+                    origin: options.baseLayer.origin,
                     resolutions: options.baseLayer.resolutions
                 });
-                this._baseLayer = L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
+
+                this._baseLayer = new L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
                     id: this._baseLayerId,
                     img: options.baseLayer.img,
                     maxZoom: options.maxZoom,
                     tileSize: options.tileSize,
                     continuousWorld: true
                 });
+
+                var xx = 5;
             }
             else {
                 crs = L.CRS.EPSG2379;
