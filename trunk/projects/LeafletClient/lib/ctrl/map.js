@@ -2,6 +2,7 @@
     'leaflet',
     'proj4',
     'leaflet/proj4leaflet',
+    //'leaflet/esri',
     'leaflet/arcgis/esri-leaflet-src',
     'leaflet/L.Control.MousePosition',
     'jquery',
