@@ -2,7 +2,7 @@
     'leaflet',
     'zxl'
 ], function (L) {
-    L.Zxl.Base = L.Class.extends({
+    L.Zxl.Base = L.Class.extend({
         id: null,
         initialize: function(){},
         getType: function(){
