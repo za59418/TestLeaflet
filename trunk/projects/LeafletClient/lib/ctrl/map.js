@@ -8,8 +8,8 @@
     'zxl',
     'zxl/base',
     'toolbar'
-], function () {
-    L.Zxl.Map = L.Zxl.Base.extends({
+], function (L) {
+    L.Zxl.Map = L.Zxl.Base.extend({
         map: null,
         _baseLayerId: 'baseLayer',//底图ID
         _baseLayer: null,//底图
@@ -22,7 +22,7 @@
                     origion: options.baseLayer.origion,
                     resolutions: options.baseLayer.resolutions
                 });
-                this._baseLayer = L.esri.layers.TiledMapLayer(options.baseLayer.url, {
+                this._baseLayer = L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
                     id: this._baseLayerId,
                     img: options.baseLayer.img,
                     maxZoom: options.maxZoom,
@@ -39,7 +39,29 @@
                 });
             }
 
+            var minPoint = crs.projection.unproject(L.point(options.baseLayer.fullExtent[0], options.baseLayer.fullExtent[1]));
+            var maxPoint = crs.projection.unproject(L.point(options.baseLayer.fullExtent[2], options.baseLayer.fullExtent[3]));
+            var bounds = L.latLngBounds(minPoint, maxPoint);
+            var centerPoint = bounds.getCenter();
 
+            var mapOptions = {
+                crs: crs,
+                continuousWorld: true
+            };
+
+            this.map = L.map('map', mapOptions);
+            this.map.setView(centerPoint, 1);
+            //
+            L.control.scale().addTo(map);
+
+            if (this._baseLayer) {
+                this._baseLayer.addTo(this.map);
+            }
+
+            //
+            L.control.mousePosition({
+                lngFirst: true
+            }).addTo(map);
         }
     });
     return L.Zxl.Map;
