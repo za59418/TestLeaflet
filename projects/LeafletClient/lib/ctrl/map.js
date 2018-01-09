@@ -1,10 +1,8 @@
 ﻿define('zxl/map', [
     'leaflet',
-    'leaflet/esri',
     'proj4',
+    'leaflet/esri',
     'leaflet/proj4leaflet',
-    'leaflet/arcgis/esri-leaflet-src',
-    'leaflet/L.Control.MousePosition',
     'jquery',
     'zxl',
     'zxl/base',
@@ -26,21 +24,11 @@
 
                 this._baseLayer = new L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
                     id: this._baseLayerId,
-                    maxZoom: options.maxZoom,
                     img: options.baseLayer.img,
+                    maxZoom: options.maxZoom,
                     tileSize: options.tileSize,
                     continuousWorld: true
                 });
-
-                //this._baseLayer = new L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
-                //    id: this._baseLayerId,
-                //    img: options.baseLayer.img,
-                //    maxZoom: options.maxZoom,
-                //    tileSize: options.tileSize,
-                //    continuousWorld: true
-                //});
-
-                var xx = 5;
             }
             else {
                 crs = L.CRS.EPSG2379;
@@ -63,17 +51,14 @@
 
             this.map = L.map('map', mapOptions);
             this.map.setView(centerPoint, 1);
-            //
-            L.control.scale().addTo(map);
 
             if (this._baseLayer) {
                 this._baseLayer.addTo(this.map);
             }
 
             //
-            L.control.mousePosition({
-                lngFirst: true
-            }).addTo(map);
+            L.control.scale().addTo(this.map);
+
         }
     });
     return L.Zxl.Map;
