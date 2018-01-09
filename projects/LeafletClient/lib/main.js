@@ -7,6 +7,7 @@
     "jquery": "../lib/jquery-1.11.1.min",
     "zxl": "../lib/ctrl/namespace",
     "zxl/base": "../lib/ctrl/base",
+    "zxl/pool": "../lib/ctrl/pool",
     "zxl/map": "../lib/ctrl/map",
     "toolbar": "../lib/ctrl/toolbar"
 };
@@ -31,14 +32,19 @@ require([
     'jquery',
     'zxl',
     'zxl/base',
+    'zxl/pool',
     'zxl/map',
     'toolbar'
 ], function () {
+    L.zxl = {};
+    L.zxl.pool = new L.Zxl.Pool();
+
     var t = new L.Zxl.Toolbar();
     t.initialize();
 
     var options = {
         id: 'main',
+        zoom: 0,
         maxZoom: 8,
         tileSize: 256,
         baseCrs: {
@@ -68,6 +74,7 @@ require([
     };
     
     var map = new L.Zxl.Map(options);
+    L.zxl.pool.add(map);
     map.initialize();
 
     //var centerPoint = null;

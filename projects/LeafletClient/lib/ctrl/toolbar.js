@@ -1,6 +1,7 @@
 ﻿define('toolbar', [
     'leaflet',
     'zxl',
+    'zxl/map',
     'jquery'
 ], function (L) {
     L.Zxl.Toolbar = L.Control.extend({
@@ -32,6 +33,22 @@
               + '</div>';
             html.push(bar);
 
+            var bar2 = '<div class="toolbar-bar onlyIcon">'
+                + '<a class="toolbar-a-style" id="menu_PrevView" title="前一视图">'
+                    + '<span class="icon-prev-view"></span>'
+                    + '<span></span>'
+                + '</a>'
+              + '</div>';
+            html.push(bar2);
+
+            var bar3 = '<div class="toolbar-bar onlyIcon">'
+                + '<a class="toolbar-a-style" id="menu_NextView" title="后一视图">'
+                    + '<span class="icon-next-view"></span>'
+                    + '<span></span>'
+                + '</a>'
+              + '</div>';
+            html.push(bar3);
+
             content.append(html.join(''));
         },
         handle: function (e) {
@@ -45,7 +62,16 @@
                 switch(id)
                 {
                     case "fullExtent":
-
+                        var map = L.zxl.pool.get("main");
+                        map.zoomToFullExtent();
+                        break;
+                    case "PrevView":
+                        var map = L.zxl.pool.get("main");
+                        map.goBack();
+                        break;
+                    case "NextView":
+                        var map = L.zxl.pool.get("main");
+                        map.goForward();
                         break;
                     default:
                         break;
