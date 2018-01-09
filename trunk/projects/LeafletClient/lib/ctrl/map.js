@@ -1,5 +1,6 @@
 ﻿define('zxl/map', [
     'leaflet',
+    'leaflet/esri',
     'proj4',
     'leaflet/proj4leaflet',
     //'leaflet/esri',
@@ -26,11 +27,19 @@
 
                 this._baseLayer = new L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
                     id: this._baseLayerId,
-                    img: options.baseLayer.img,
                     maxZoom: options.maxZoom,
+                    img: options.baseLayer.img,
                     tileSize: options.tileSize,
                     continuousWorld: true
                 });
+
+                //this._baseLayer = new L.esri.Layers.TiledMapLayer(options.baseLayer.url, {
+                //    id: this._baseLayerId,
+                //    img: options.baseLayer.img,
+                //    maxZoom: options.maxZoom,
+                //    tileSize: options.tileSize,
+                //    continuousWorld: true
+                //});
 
                 var xx = 5;
             }
