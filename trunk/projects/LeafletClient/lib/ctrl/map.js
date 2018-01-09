@@ -55,10 +55,48 @@
             if (this._baseLayer) {
                 this._baseLayer.addTo(this.map);
             }
-
             //
             L.control.scale().addTo(this.map);
 
+            this.map.whenReady(function () {
+                this._getInitExtent();
+            }, this);
+
+            //视图
+            this._viewHistory = [{ center: centerPoint, zoom: options.zoom }];
+            this._currIndex = 0;
+            this.map.on("moveend", this._updateHistory, this);
+        },
+        _getInitExtent: function () {
+            this.center = this.map.getCenter();
+            this.zoom = this.map.getZoom();
+        },
+        _updateHistory: function(){
+            var newView = { center: this.map.getCenter(), zoom: this.map.getZoom() };
+            var insertIndex = this._currIndex + 1;
+            this._viewHistory.splice(insertIndex, this._updateHistory.length, newView);
+            this._currIndex++;
+        },
+        zoomToFullExtent: function () {
+            this.map.setView(this.center, this.zoom);
+        },
+        goBack: function () {
+            if (this._currIndex != 0) {
+                this.map.off("moveend", this._updateHistory, this);
+                this.map.once("moveend", function () { this.map.on("moveend", this._updateHistory, this); }, this);
+                this._currIndex--;
+                var view = this._viewHistory[this._currIndex];
+                this.map.setView(view.center, view.zoom);
+            }
+        },
+        goForward: function () {
+            if (this._currIndex != this._viewHistory.length - 1) {
+                this.map.off('moveend', this._updateHistory, this);
+                this.map.once('moveend', function () { this.map.on('moveend', this._updateHistory, this); }, this);
+                this._currIndex++;
+                var view = this._viewHistory[this._currIndex];
+                if (view) this.map.setView(view.center, view.zoom);
+            }
         }
     });
     return L.Zxl.Map;
