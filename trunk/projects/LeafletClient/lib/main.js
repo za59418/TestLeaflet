@@ -1,8 +1,8 @@
 ﻿var Default_Paths = {
     "leaflet": "../lib/leaflet/leaflet",
+    "leaflet/esri": "../lib/leaflet/arcgis/esri-leaflet",
     "proj4": "../lib/leaflet/proj4",
     "leaflet/proj4leaflet": "../lib/leaflet/proj4leaflet",
-    //"leaflet/esri": "../lib/leaflet/arcgis/esri-leaflet",
     "leaflet/arcgis/esri-leaflet-src": "../lib/leaflet/arcgis/esri-leaflet-src",
     "leaflet/L.Control.MousePosition": "../lib/leaflet/L.Control.MousePosition",
     "css": "../lib/requirejs/css.min",
@@ -26,9 +26,9 @@ require.config({
 
 require([
     'leaflet',
+    'leaflet/esri',
     'proj4',
     'leaflet/proj4leaflet',
-    //'leaflet/esri',
     'leaflet/arcgis/esri-leaflet-src',
     'leaflet/L.Control.MousePosition',
     'jquery',
