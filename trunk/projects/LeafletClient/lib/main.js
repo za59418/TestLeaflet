@@ -3,8 +3,6 @@
     "leaflet/esri": "../lib/leaflet/arcgis/esri-leaflet",
     "proj4": "../lib/leaflet/proj4",
     "leaflet/proj4leaflet": "../lib/leaflet/proj4leaflet",
-    "leaflet/arcgis/esri-leaflet-src": "../lib/leaflet/arcgis/esri-leaflet-src",
-    "leaflet/L.Control.MousePosition": "../lib/leaflet/L.Control.MousePosition",
     "css": "../lib/requirejs/css.min",
     "jquery": "../lib/jquery-1.11.1.min",
     "zxl": "../lib/ctrl/namespace",
@@ -16,6 +14,7 @@
 var Default_Shims = {
     "leaflet": { deps: ['css!../lib/leaflet/leaflet.css'] },
     "toolbar": { deps: ['css!../lib/ctrl/layout.toolbar.css'] },
+    //"leaflet/L.Control.MousePosition": { deps: ['css!../lib/leaflet/L.Control.MousePosition.css'] }
 };
 
 require.config({
@@ -29,8 +28,6 @@ require([
     'leaflet/esri',
     'proj4',
     'leaflet/proj4leaflet',
-    'leaflet/arcgis/esri-leaflet-src',
-    'leaflet/L.Control.MousePosition',
     'jquery',
     'zxl',
     'zxl/base',
